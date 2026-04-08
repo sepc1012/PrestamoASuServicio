@@ -1,0 +1,42 @@
+# --- JAVA / MAVEN ---
+target/
+!.mvn/wrapper/maven-wrapper.jar
+build/
+bin/
+out/
+*.class
+*.hprof
+
+# --- CONFIGURACIÓN Y SECRETOS (SÚPER IMPORTANTE) ---
+# Subiremos el properties una vez con variables ${VAR} y luego usaremos assume-unchanged
+# src/main/resources/application.properties 
+src/main/resources/application-*.properties
+.env
+
+# --- DOCKER ---
+# Ignoramos la carpeta de datos de Postgres para que no se suba tu DB local
+pgdata/
+postgres-data/
+docker-compose.override.yml
+*.db
+
+# --- IDEs (IntelliJ, VSCode, etc) ---
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+.settings/
+.classpath
+.project
+.factorypath
+.apt_generated
+.sts4-cache
+.nb-gradle/
+nbproject/private/
+
+# --- LOGS Y TEMPORALES ---
+*.log
+*.temp
+*.tmp
+log/
