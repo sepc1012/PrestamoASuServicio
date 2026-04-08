@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:4321") // frontend
+@CrossOrigin(origins = "http://localhost:5173") // frontend
 public class AuthController {
 
     private final AuthService authService;

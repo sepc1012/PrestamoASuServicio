@@ -29,7 +29,7 @@ public class DataInitializer implements CommandLineRunner {
             admin.setEmail("admin2@servicore.com");
             admin.setPassword(passwordEncoder.encode("password123"));
             admin.setRol(UserRole.ADMIN);
-            admin.setActive(true); // <--- ESTO evitará el error de la columna "activo"
+            admin.setActive(true);
             userRepository.save(admin);
 
             System.out.println("-----------------------------------------");
