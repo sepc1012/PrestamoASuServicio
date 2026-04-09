@@ -1,9 +1,7 @@
 package com.prestamosasuservicio.backend.entity;
 
-
 import com.prestamosasuservicio.backend.enums.LoanStatus;
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,16 +14,20 @@ public class Loan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
     private BigDecimal amount;
-    private BigDecimal interestRate;
+    private BigDecimal interest;
     private BigDecimal totalToPay;
-    private BigDecimal dailyPayment;
+    private BigDecimal pendingAmount;
 
+    private BigDecimal dailyPayment;
+    private BigDecimal finalPayment;
     private Integer totalCuotas;
+    private Integer cuotasPagadas;
+
     private LocalDate startDate;
     private LocalDate estimatedEndDate;
     private LocalDate actualEndDate;
@@ -35,48 +37,61 @@ public class Loan {
 
     private LocalDateTime createdAt;
 
+    public Loan() {}
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
+        if (this.pendingAmount == null) {
+            this.pendingAmount = this.totalToPay;
+        }
+        if (this.cuotasPagadas == null) {
+            this.cuotasPagadas = 0;
+        }
     }
 
-    public Loan(Long id, Client client, BigDecimal amount, BigDecimal interestRate, BigDecimal totalToPay, BigDecimal dailyPayment, Integer totalCuotas, LocalDate startDate, LocalDate estimatedEndDate, LocalDate actualEndDate, LoanStatus status, LocalDateTime createdAt) {
-        this.id = id;
-        this.client = client;
-        this.amount = amount;
-        this.interestRate = interestRate;
-        this.totalToPay = totalToPay;
-        this.dailyPayment = dailyPayment;
-        this.totalCuotas = totalCuotas;
-        this.startDate = startDate;
-        this.estimatedEndDate = estimatedEndDate;
-        this.actualEndDate = actualEndDate;
-        this.status = status;
-        this.createdAt = createdAt;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
-    public Client getClient() {return client;}
-    public void setClient(Client client) {this.client = client;}
-    public BigDecimal getAmount() {return amount;}
-    public void setAmount(BigDecimal amount) {this.amount = amount;}
-    public BigDecimal getInterestRate() {return interestRate;}
-    public void setInterestRate(BigDecimal interestRate) {this.interestRate = interestRate;}
-    public BigDecimal getTotalToPay() {return totalToPay;}
-    public void setTotalToPay(BigDecimal totalToPay) {this.totalToPay = totalToPay;}
-    public BigDecimal getDailyPayment() {return dailyPayment;}
-    public void setDailyPayment(BigDecimal dailyPayment) {this.dailyPayment = dailyPayment;}
-    public Integer getTotalCuotas() {return totalCuotas;}
-    public void setTotalCuotas(Integer totalCuotas) {this.totalCuotas = totalCuotas;}
-    public LocalDate getStartDate() {return startDate;}
-    public void setStartDate(LocalDate startDate) {this.startDate = startDate;}
-    public LocalDate getEstimatedEndDate() {return estimatedEndDate;}
-    public void setEstimatedEndDate(LocalDate estimatedEndDate) {this.estimatedEndDate = estimatedEndDate;}
-    public LocalDate getActualEndDate() {return actualEndDate;}
-    public void setActualEndDate(LocalDate actualEndDate) {this.actualEndDate = actualEndDate;}
-    public LoanStatus getStatus() {return status;}
-    public void setStatus(LoanStatus status) {this.status = status;}
-    public LocalDateTime getCreatedAt() {return createdAt;}
-    public void setCreatedAt(LocalDateTime createdAt) {this.createdAt = createdAt;}
+    public Client getClient() { return client; }
+    public void setClient(Client client) { this.client = client; }
+
+    public BigDecimal getAmount() { return amount; }
+    public void setAmount(BigDecimal amount) { this.amount = amount; }
+
+    public BigDecimal getInterest() { return interest; }
+    public void setInterest(BigDecimal interest) { this.interest = interest; }
+
+    public BigDecimal getTotalToPay() { return totalToPay; }
+    public void setTotalToPay(BigDecimal totalToPay) { this.totalToPay = totalToPay; }
+
+    public BigDecimal getPendingAmount() { return pendingAmount; }
+    public void setPendingAmount(BigDecimal pendingAmount) { this.pendingAmount = pendingAmount; }
+
+    public BigDecimal getDailyPayment() { return dailyPayment; }
+    public void setDailyPayment(BigDecimal dailyPayment) { this.dailyPayment = dailyPayment; }
+
+    public BigDecimal getFinalPayment() { return finalPayment; }
+    public void setFinalPayment(BigDecimal finalPayment) { this.finalPayment = finalPayment; }
+
+    public Integer getTotalCuotas() { return totalCuotas; }
+    public void setTotalCuotas(Integer totalCuotas) { this.totalCuotas = totalCuotas; }
+
+    public Integer getCuotasPagadas() { return cuotasPagadas; }
+    public void setCuotasPagadas(Integer cuotasPagadas) { this.cuotasPagadas = cuotasPagadas; }
+
+    public LocalDate getStartDate() { return startDate; }
+    public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
+
+    public LocalDate getEstimatedEndDate() { return estimatedEndDate; }
+    public void setEstimatedEndDate(LocalDate estimatedEndDate) { this.estimatedEndDate = estimatedEndDate; }
+
+    public LocalDate getActualEndDate() { return actualEndDate; }
+    public void setActualEndDate(LocalDate actualEndDate) { this.actualEndDate = actualEndDate; }
+
+    public LoanStatus getStatus() { return status; }
+    public void setStatus(LoanStatus status) { this.status = status; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
