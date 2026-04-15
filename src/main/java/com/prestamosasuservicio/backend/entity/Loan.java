@@ -18,9 +18,19 @@ public class Loan {
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
+    // Dinero neto prestado (Capital inicial)
     private BigDecimal amount;
-    private BigDecimal interest;
+
+    // Tasa de interés (Ej: 0.20 para el 20%)
+    private BigDecimal interestRate;
+
+    // Ganancia en dinero (Ej: S/ 200)
+    private BigDecimal interestAmount;
+
+    // La suma de amount + interestAmount (Ej: S/ 1200)
     private BigDecimal totalToPay;
+
+    // Lo que falta cobrar de los 1200
     private BigDecimal pendingAmount;
 
     private BigDecimal dailyPayment;
@@ -50,6 +60,7 @@ public class Loan {
         }
     }
 
+    // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -59,8 +70,11 @@ public class Loan {
     public BigDecimal getAmount() { return amount; }
     public void setAmount(BigDecimal amount) { this.amount = amount; }
 
-    public BigDecimal getInterest() { return interest; }
-    public void setInterest(BigDecimal interest) { this.interest = interest; }
+    public BigDecimal getInterestRate() { return interestRate; }
+    public void setInterestRate(BigDecimal interestRate) { this.interestRate = interestRate; }
+
+    public BigDecimal getInterestAmount() { return interestAmount; }
+    public void setInterestAmount(BigDecimal interestAmount) { this.interestAmount = interestAmount; }
 
     public BigDecimal getTotalToPay() { return totalToPay; }
     public void setTotalToPay(BigDecimal totalToPay) { this.totalToPay = totalToPay; }

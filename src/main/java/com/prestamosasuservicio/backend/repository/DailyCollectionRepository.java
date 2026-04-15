@@ -15,4 +15,8 @@ public interface DailyCollectionRepository extends JpaRepository<DailyCollection
     List<DailyCollection> findRouteByDate(@Param("fecha") LocalDate fecha);
 
     List<DailyCollection> findByLoanIdAndStatus(Long loanId, String status);
+
+    List<DailyCollection> findByCollectionDate(LocalDate date);
+
+    List<DailyCollection> findByLoanIdOrderByVisitOrderAsc(Long loanId);
 }

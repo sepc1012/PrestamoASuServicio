@@ -13,13 +13,12 @@ public class ClientService {
     private ClientRepository clientRepository;
 
     public Client save(Client client) {
-        // Lógica de Aval Opcional
         if (client.getAval() != null && client.getAval().getId() != null) {
             Client avalExistente = clientRepository.findById(client.getAval().getId())
                     .orElseThrow(() -> new RuntimeException("El aval especificado no existe"));
             client.setAval(avalExistente);
         } else {
-            client.setAval(null); // Asegura que sea opcional
+            client.setAval(null);
         }
         return clientRepository.save(client);
     }
@@ -41,7 +40,6 @@ public class ClientService {
             client.setAddress(details.getAddress());
             client.setPhone(details.getPhone());
 
-            // Actualizar aval si es necesario
             if (details.getAval() != null && details.getAval().getId() != null) {
                 clientRepository.findById(details.getAval().getId()).ifPresent(client::setAval);
             }
