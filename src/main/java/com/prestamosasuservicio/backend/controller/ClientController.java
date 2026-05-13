@@ -38,6 +38,12 @@ public class ClientController {
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Client>> searchClients(@RequestParam String name) {
+        return ResponseEntity.ok(clientService.searchClients(name));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         return clientService.delete(id) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();

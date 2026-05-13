@@ -58,4 +58,8 @@ public class ClientService {
         }
         return false;
     }
+    // En ClientService.java
+    public List<Client> searchClients(String name) {
+        return clientRepository.findTop5ByNameContainingIgnoreCaseAndActiveTrue(name);
+    }
 }

@@ -13,4 +13,8 @@ import java.util.Optional;
 public interface ClientRepository extends JpaRepository<Client, Long> {
     Optional<Client> findByName(String name);
     List<Client> findByActiveTrue();
+
+
+    List<Client> findByNameContainingIgnoreCaseAndActiveTrue(String name);
+    List<Client> findTop5ByNameContainingIgnoreCaseAndActiveTrue(String name);
 }
